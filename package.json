@@ -1,0 +1,16 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maximo Lanza",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ibm-watson": "^5.1.0",
+    "watson-developer-cloud": "^4.0.1"
+  }
+}
