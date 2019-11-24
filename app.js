@@ -87,7 +87,7 @@ var express = require('express');
 var app = express();
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -117,7 +117,7 @@ respuestas.forEach( item => {
   });
 
 
-var server = app.listen(3001, function () {
+var server = app.listen(8080, function () {
   var host = server.address().address
   var port = server.address().port
   console.log("Example app listening at http://localhost:%s",port)
