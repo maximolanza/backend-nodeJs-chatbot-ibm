@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 
 
-var server = app.listen(8080, function () {
+var server = app.listen(process.env.PORT || 8080, function () {
   var host = server.address().address
   var port = server.address().port
   console.log("Example app listening at http://localhost:%s",port)
@@ -14,13 +14,13 @@ var server = app.listen(8080, function () {
 
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
 
-app.get('/api/test', function(req, res) {
+app.get('/test', function(req, res) {
   res.send("Hola mundo!");
 });
 
