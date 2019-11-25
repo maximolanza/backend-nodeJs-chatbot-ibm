@@ -2,9 +2,9 @@
 
 var express = require('express');
 var app = express();
+var nodemailer = require('nodemailer');
 
-
-var server = app.listen(process.env.PORT || 8080, function () {
+var server = app.listen(process.env.PORT || 8081, function () {
   var host = server.address().address
   var port = server.address().port
   console.log("Example app listening at http://localhost:%s",port)
@@ -131,3 +131,46 @@ respuestas.forEach( item => {
     //res.send(srt + 'Sesion obtenida' + SESSIONID_temp);
   });
 
+
+  /* Node Mailer */
+
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'mlmailsender@gmail.com',
+      pass: 'TheBestPassword!'
+    }
+  });
+  
+ 
+
+
+  app.get('/mail/:mailtext', function(req, res) {
+    var mailtext = req.params.mailtext;
+
+    var mailOptions = {
+      from: 'mlmailsender@gmail.com',
+      to: 'max.slanza@gmail.com',
+      subject: '[WEB CV - Mensaje recibido]',
+      html: mailtext
+    };
+
+    console.log('Mensaje: ' + mailtext)
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+ });/*
+ 
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email enviado: ' + info.response);
+    }
+  });
+ });*/
