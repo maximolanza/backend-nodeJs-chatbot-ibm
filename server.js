@@ -14,7 +14,9 @@ var server = app.listen(process.env.PORT || 8081, function () {
 
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
+  //res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+ 
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -135,19 +137,23 @@ respuestas.forEach( item => {
   /* Node Mailer */
 
 
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'mlmailsender@gmail.com',
-      pass: 'TheBestPassword!'
-    }
-  });
+ 
   
  
 
 
   app.get('/mail/:mailtext', function(req, res) {
     var mailtext = req.params.mailtext;
+    console.log("Mensaje a procesar: "+ mailtext);
+
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'mlmailsender@gmail.com',
+        pass: 'TheBestPassword!'
+      }
+    });
 
     var mailOptions = {
       from: 'mlmailsender@gmail.com',
@@ -164,8 +170,63 @@ respuestas.forEach( item => {
       console.log('Email sent: ' + info.response);
     }
   });
- });/*
+ });
  
+ 
+ 
+ 
+ 
+ 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+ 
+
+
+ app.post('/send',function(req,res){
+  var mail=req.body.mail
+  var mensaje=req.body.mensaje;
+
+ 
+  console.log(this.mail,this.mensaje);
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'mlmailsender@gmail.com',
+        pass: 'TheBestPassword!'
+      }
+    });
+
+    var mailOptions = {
+      from: 'mlmailsender@gmail.com',
+      to: 'max.slanza@gmail.com',
+      subject: '[WEB CV - Mensaje recibido] - From: ' + mail,
+      html: mensaje
+    };
+
+    console.log('Mensaje: ' + mail + ' ' + mensaje)
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  var resJSON = {
+    "mail": mail,
+    "mensaje": mensaje
+  }
+  res.send(JSON.stringify(resJSON));
+});
+ 
+ 
+ 
+ 
+ 
+ /*
+ 
+
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
