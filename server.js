@@ -158,7 +158,7 @@ respuestas.forEach( item => {
     var mailOptions = {
       from: 'mlmailsender@gmail.com',
       to: 'max.slanza@gmail.com',
-      subject: '[WEB CV - Mensaje recibido]',
+      subject: '[WEBCV]',
       html: mailtext
     };
 
@@ -201,7 +201,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
     var mailOptions = {
       from: 'mlmailsender@gmail.com',
       to: 'max.slanza@gmail.com',
-      subject: '[WEB CV - Mensaje recibido] - From: ' + mail,
+      subject: 'From: ' + mail + '[WEBCV]',
       html: mensaje
     };
 
