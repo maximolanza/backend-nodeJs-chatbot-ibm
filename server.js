@@ -238,7 +238,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  });*/
 
 
-/* Dynamic routes setup for express server*/
+/* Dynamic routes setup for express server
 app.use('/*',function(req, res) {
   res.sendfile(__dirname + '/dist/index.html');
-});
+});*/
