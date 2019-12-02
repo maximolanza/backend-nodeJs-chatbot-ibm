@@ -23,7 +23,8 @@ app.use(function(req, res, next) {
 
 
 app.get('/test', function(req, res) {
-  res.send("Hola mundo!");
+  //res.send("Hola mundo!");
+  res.send(__dirname);
 });
 
 
@@ -236,7 +237,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
   });
  });*/
 
- 
+
 /* Dynamic routes setup for express server*/
 app.use('/*',function(req, res) {
   res.sendfile(__dirname + '/dist/index.html');
