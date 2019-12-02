@@ -235,12 +235,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
     }
   });
  });*/
-/* Dynamic routes setup for express server*/
 
- if(process.env.NODE_ENV === 'production'){
-  //set static folder
-  app.use(express.static(__dirname + '/public'));
-}/*
-app.get('*',(req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});*/
+ 
+/* Dynamic routes setup for express server*/
+app.use('/*',function(req, res) {
+  res.sendfile(__dirname + '/dist/index.html');
+});
