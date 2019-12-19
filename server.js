@@ -5,28 +5,22 @@ var app = express();
 var nodemailer = require('nodemailer');
 
 var server = app.listen(process.env.PORT || 8081, function () {
-  var host = server.address().address
+  //var host = server.address().address
   var port = server.address().port
-  console.log("Example app listening at http://localhost:%s",port)
+  console.log("Example app listening at %s",port)
 })
 
-
-
-
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
-  //res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
- 
+ // res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-
 app.get('/test', function(req, res) {
-  //res.send("Hola mundo!");
+  //res.send("Aló");
   res.send(__dirname);
 });
-
 
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -58,10 +52,10 @@ service.createSession({
   .then(res => {
     session_Id = res['result']['session_id'];
    // console.log(res);
-    sendMessage({
+    /*sendMessage({
       message_type: 'text',
       text: '' // iniciar conversación con mensaje vacío
-    });
+    });*/
   })
   .catch(err => {
     console.log(err); // algo ha ido mal
@@ -79,7 +73,15 @@ function sendMessage(messageInput) {
       processResponse(res);
     })
     .catch(err => {
-     // console.log(err); // algo ha ido mal
+      console.log(err); // algo ha ido mal
+    });
+
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        console.log('Obteniendo respuesta...')
+        resolve();
+       }, 3500);
     });
 }
 
@@ -118,7 +120,13 @@ app.get('/api/:msg', function(req, res) {
 
     message_type: 'text',
     text: srt // iniciar conversación con mensaje vacío
-  })/*.then(res  => {
+  }).then( () => {
+    console.log('then; ' + respuesta);
+    res.send(respuesta);
+  }
+  );
+  
+  /*.then(res  => {
     respuesta= res;
   });*/;
   var textoRespuesta;
@@ -129,7 +137,7 @@ respuestas.forEach( item => {
   //console.log(respuestas.toString());
   //Enviar lista de mensajes
   //res.send(textoRespuesta);
-  res.send(respuesta);
+  //res.send(respuesta);
 
     //res.send(srt + 'Sesion obtenida' + SESSIONID_temp);
   });
@@ -172,12 +180,7 @@ respuestas.forEach( item => {
     }
   });
  });
- 
- 
- 
- 
- 
- 
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
