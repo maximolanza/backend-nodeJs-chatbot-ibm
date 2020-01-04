@@ -13,7 +13,7 @@ var server = app.listen(process.env.PORT || 8081, function () {
 app.use(function(req, res, next) {
   //res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
   
-  res.header("Access-Control-Allow-Origin", "http://www.maximolanza.uy"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "https://www.maximolanza.uy"); // update to match the domain you will make the request from
   
   //res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
