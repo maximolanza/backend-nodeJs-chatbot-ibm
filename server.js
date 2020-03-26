@@ -5,9 +5,8 @@ var app = express();
 var nodemailer = require('nodemailer');
 
 var server = app.listen(process.env.PORT || 8081, function () {
-  //var host = server.address().address
   var port = server.address().port
-  console.log("Example app listening at %s",port)
+  console.log("Example app listening at http://localhost:%s",port)
 })
 
 app.use(function(req, res, next) {
@@ -21,7 +20,6 @@ app.use(function(req, res, next) {
 });
 
 app.get('/test', function(req, res) {
-  //res.send("Aló");
   res.send(__dirname);
 });
 
@@ -54,10 +52,11 @@ service.createSession({
 })
   .then(res => {
     session_Id = res['result']['session_id'];
+    // iniciar conversación con mensaje vacío
    // console.log(res);
     /*sendMessage({
       message_type: 'text',
-      text: '' // iniciar conversación con mensaje vacío
+      text: '' 
     });*/
   })
   .catch(err => {
@@ -129,29 +128,15 @@ app.get('/api/:msg', function(req, res) {
   }
   );
   
-  /*.then(res  => {
-    respuesta= res;
-  });*/;
   var textoRespuesta;
 respuestas.forEach( item => {
   textoRespuesta = textoRespuesta + srt + '<br>' +  item + '<br>';
 })
- // res.send(respuestas.toString());
-  //console.log(respuestas.toString());
-  //Enviar lista de mensajes
-  //res.send(textoRespuesta);
-  //res.send(respuesta);
-
-    //res.send(srt + 'Sesion obtenida' + SESSIONID_temp);
+ 
   });
 
 
   /* Node Mailer */
-
-
- 
-  
- 
 
 
   app.get('/mail/:mailtext', function(req, res) {
@@ -196,12 +181,20 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
  
   console.log(this.mail,this.mensaje);
-
+    var dot = '***';
+    var name = 'mailsender';
+    var first = 'ml';
+    var third = 'sender';
+    var second = 'mail';
+    var really = '@gmail.com';
+    var spetial = '!';
+    var what = '--';
+    var sirious = '++';
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'mlmailsender@gmail.com',
-        pass: 'TheBestPassword!'
+        user: first+second+third+really,
+        pass: spetial + dot + name + dot + spetial + what + sirious;
       }
     });
 
@@ -244,7 +237,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  });*/
 
 
-/* Dynamic routes setup for express server
+// Dynamic routes setup for express server
 app.use('/*',function(req, res) {
-  res.sendfile(__dirname + '/dist/index.html');
-});*/
+  //res.sendfile(__dirname + '/dist/index.html');
+  res.send('Hi! Welcome to my NodeJS RestAPI! you can try https://maxibackend.herokuapp.com/api/mensaje');
+});
