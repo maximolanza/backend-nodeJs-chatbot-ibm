@@ -3,6 +3,7 @@
 var express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
+const dotenv = require('dotenv').config();
 
 var server = app.listen(process.env.PORT || 8081, function () {
   var port = server.address().port
@@ -145,16 +146,19 @@ respuestas.forEach( item => {
 
 
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      requireTLS: true,
       auth: {
-        user: 'mlmailsender@gmail.com',
-        pass: 'TheBestPassword!'
+        user : process.env.DB_USER ,
+        pass : process.env.DB_PASSWORD ,
       }
     });
 
     var mailOptions = {
-      from: 'mlmailsender@gmail.com',
-      to: 'max.slanza@gmail.com',
+      from: process.env.DB_USER,
+      to: process.env.DB_USERTO,
       subject: '[WEBCV]',
       html: mailtext
     };
@@ -181,7 +185,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
  
   console.log(this.mail,this.mensaje);
-    var dot = '***';
+    /*var dot = '***';
     var name = 'mailsender';
     var first = 'ml';
     var third = 'sender';
@@ -189,18 +193,21 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
     var really = '@gmail.com';
     var spetial = '!';
     var what = '--';
-    var sirious = '++';
+    var sirious = '++';*/
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      requireTLS: true,
       auth: {
-        user: first+second+third+really,
-        pass: spetial + dot + name + dot + spetial + what + sirious,
+        user : process.env.DB_USER ,
+        pass : process.env.DB_PASSWORD ,
       }
     });
 
     var mailOptions = {
-      from: 'mlmailsender@gmail.com',
-      to: 'max.slanza@gmail.com',
+      from: process.env.DB_USER,
+      to: process.env.DB_USERTO ,
       subject: '[CV] ' + mail,
       html: mensaje
     };
@@ -229,26 +236,32 @@ app.get('/testmail',function(req,res){
 
  
   console.log(this.mail,this.mensaje);
-    var dot = '***';
+   /* var dot = '!!!';
     var name = 'mailsender';
     var first = 'ml';
     var third = 'sender';
     var second = 'mail';
     var really = '@gmail.com';
-    var spetial = '!';
+    var spetial = '*';
     var what = '--';
-    var sirious = '++';
+    var sirious = '++';*/
+    //console.log(first+second+third+really);
+    //console.log(spetial + dot + name + dot + spetial + what + sirious);
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
+      //service: 'gmail',
+      host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
       auth: {
-        user: first+second+third+really,
-        pass: spetial + dot + name + dot + spetial + what + sirious,
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASSWORD,
       }
     });
 
     var mailOptions = {
-      from: 'mlmailsender@gmail.com',
-      to: 'max.slanza@gmail.com',
+      from: process.env.DB_USER,
+      to: process.env.DB_USERTO,
       subject: '[CV] ' + mail,
       html: mensaje
     };
