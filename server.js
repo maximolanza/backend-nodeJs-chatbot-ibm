@@ -194,7 +194,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
       service: 'gmail',
       auth: {
         user: first+second+third+really,
-        pass: spetial + dot + name + dot + spetial + what + sirious;
+        pass: spetial + dot + name + dot + spetial + what + sirious,
       }
     });
 
@@ -223,6 +223,50 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  
  
  
+app.get('/testmail',function(req,res){
+  var mail='Test';
+  var mensaje='Hi Me, I am testing my service';
+
+ 
+  console.log(this.mail,this.mensaje);
+    var dot = '***';
+    var name = 'mailsender';
+    var first = 'ml';
+    var third = 'sender';
+    var second = 'mail';
+    var really = '@gmail.com';
+    var spetial = '!';
+    var what = '--';
+    var sirious = '++';
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: first+second+third+really,
+        pass: spetial + dot + name + dot + spetial + what + sirious,
+      }
+    });
+
+    var mailOptions = {
+      from: 'mlmailsender@gmail.com',
+      to: 'max.slanza@gmail.com',
+      subject: '[CV] ' + mail,
+      html: mensaje
+    };
+
+    console.log('Mensaje: ' + mail + ' ' + mensaje)
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  var resJSON = {
+    "mail": mail,
+    "mensaje": mensaje
+  }
+  res.send(JSON.stringify(resJSON));
+});
  
  /*
  
