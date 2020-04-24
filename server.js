@@ -5,6 +5,8 @@ var app = express();
 var nodemailer = require('nodemailer');
 const dotenv = require('dotenv').config();
 
+process.env.NODE_ENV = 'production';
+
 var server = app.listen(process.env.PORT || 8081, function () {
   var port = server.address().port
   console.log("Example app listening at http://localhost:%s",port)
