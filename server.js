@@ -11,7 +11,7 @@ var server = app.listen(process.env.PORT || 8081, function () {
 })
 
 app.use(function(req, res, next) {
-  //res.header("Access-Control-Allow-Origin", "https://maximolanza.herokuapp.com"); // update to match the domain you will make the request from
+  //res.header("Access-Control-Allow-Origin","https://www.maximolanza.uy"); // update to match the domain you will make the request from
   
   res.header("Access-Control-Allow-Origin", "https://www.maximolanza.uy"); // update to match the domain you will make the request from
   
@@ -232,7 +232,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  
 app.get('/testmail',function(req,res){
   var mail='Test';
-  var mensaje='Hi Me, I am testing my service';
+  var mensaje='Hi, I am testing my mailing service';
 
  
   console.log(this.mail,this.mensaje);
