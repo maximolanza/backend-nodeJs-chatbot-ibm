@@ -184,6 +184,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  app.post('/send',function(req,res){
   var mail=req.body.mail
   var mensaje=req.body.mensaje;
+  var error= false;
 
  
   console.log(this.mail,this.mensaje);
@@ -218,13 +219,14 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
+      error=true;
     } else {
       console.log('Email sent: ' + info.response);
+      error=fasle;
     }
   });
   var resJSON = {
-    "mail": mail,
-    "mensaje": mensaje
+   "error": error
   }
   res.send(JSON.stringify(resJSON));
 });
