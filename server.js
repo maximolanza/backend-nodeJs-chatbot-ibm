@@ -5,7 +5,6 @@ var app = express();
 var nodemailer = require('nodemailer');
 const dotenv = require('dotenv').config();
 
-process.env.NODE_ENV = 'production';
 
 var server = app.listen(process.env.PORT || 8081, function () {
   var port = server.address().port
@@ -17,7 +16,7 @@ app.use(function(req, res, next) {
   
   res.header("Access-Control-Allow-Origin", "https://www.maximolanza.uy"); // update to match the domain you will make the request from
   
-  //res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+  //res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -149,8 +148,10 @@ respuestas.forEach( item => {
 
     var transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
+     // port: 587,
+     // secure: false,
+     port: 465,
+secure: true,
       requireTLS: true,
       auth: {
         user : process.env.DB_USER ,
